@@ -4,12 +4,21 @@ const userModel = require("../models/userModel")
 const AuthorModel = require("../models/authorModel");
 const BookModel = require("../models/bookModel");
 const IssueModel = require("../models/issueModel");
+const mongoose = require("mongoose");
+
 const router = express.Router();
 
 //! Add a new user /issue/add"
 router.post("/add", async (req, res) => {
     const { issuedTo, book } = req.body;
     if (!issuedTo || !book) return res.status(400).send("Fill all the fields");
+    const existingIssue = await IssueModel.find({ book: book });
+    // const existingIssue = await IssueModel.findById(book);
+    console.log(existingIssue);
+    if (existingIssue) return res.status(400).json({ msg: "issue already exists" });
+
+
+
 
     const newIssue = new IssueModel({
         issuedTo: issuedTo,
@@ -45,13 +54,11 @@ router.get("/:id", async (req, res) => {
 // !Get A Author "issue/alll"
 router.get("/all", async (req, res) => {
 
-    let foundIssue = IssueModel.find();
-    if (!foundIssue) return res.status(400).send("No issue found")
+    let allIssues = await IssueModel.find();
+    if (!allIssues) return res.status(400).send("Could not get Issues")
     return res.status(200).send({
-        foundIssue: foundIssue
-    }
-    )
-
+        allIssues: allIssues
+    })
 
 })
 

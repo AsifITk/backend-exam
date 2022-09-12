@@ -1,5 +1,5 @@
 const express = require("express");
-const userModel = require("../models/userModel")
+// const userModel = require("../models/userModel")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/userModel");
@@ -18,7 +18,7 @@ router.post("/signup", async (req, res) => {
         return res.status(400).json({ msg: "Please fill all fields" });
     }
 
-    const existingUser = await userModel.findOne({ email: email });
+    const existingUser = await UserModel.findOne({ email: email });
     if (existingUser) {
         return res.status(400).json({ msg: "User already exists" });
     }
@@ -26,11 +26,24 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     console.log(hashedPassword);
 
-    const newUser = await UserModel.create({
+    // const newUser = await UserModel.create({
 
+    //     name: name,
+    //     email: email,
+    //     password: hashedPassword,
+    // });
+    const newUser = new UserModel({
         name: name,
         email: email,
-        password: hashedPassword,
+        password: '123456',
+    });
+
+    await newUser.save((err, user) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(user);
+        }
     });
     if (!newUser) return res.status(400).send("user not Created")
     console.log(req.body);
