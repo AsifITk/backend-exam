@@ -25,7 +25,7 @@ const Schema = new mongoose.Schema({
         timestamps: true,
     });
 
-const IssueModel = mongoose.model('Book', Schema);
+const IssueModel = mongoose.model('Issue', Schema);
 
 module.exports = IssueModel;
 

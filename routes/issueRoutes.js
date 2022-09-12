@@ -26,7 +26,7 @@ router.post("/add", async (req, res) => {
 });
 
 
-// !List a  issue "issue/:id"
+// // !List a  issue "issue/:id"
 router.get("/:id", async (req, res) => {
     let issueId = req.params.id;
     let foundIssue = IssueModel.findById(issueId);
