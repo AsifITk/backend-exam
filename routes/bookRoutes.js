@@ -2,7 +2,7 @@ const express = require("express");
 const userModel = require("../models/userModel")
 
 const AuthorModel = require("../models/authorModel");
-const BookModel = require("../models/bookModel");
+const BookModel = require("../models/bookModel")
 const router = express.Router();
 
 //! Add a new user "/book/add"

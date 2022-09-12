@@ -2,8 +2,8 @@ const express = require("express");
 const userModel = require("../models/userModel")
 
 const AuthorModel = require("../models/authorModel");
-const BookModel = require("../models/bookModel");
-const IssueModel = require("../models/issueModel")
+// const BookModel = require("../models/bookModel");
+const IssueModel = require("../models/issueModel");
 const router = express.Router();
 
 //! Add a new user /issue/add"
@@ -18,7 +18,7 @@ router.post("/add", async (req, res) => {
     let savedIssue = await newIssue.save();
     if (!savedIssue) return res.status(400).send("could not issue");
 
-    let bookUpdate = await BookModel.findByI dAndUpdate(book, {
+    let bookUpdate = await BookModel.findByIdAndUpdate(book, {
         status: "unavailable"
     })
     console.log(bookUpdate);

@@ -25,7 +25,7 @@ mongoose
 const authRouter = require("./routes/authRoutes");
 const authorRouter = require("./routes/authorRoutes")
 const bookRouter = require("./routes/bookRoutes")
-const issueRouter = require("./routes/issueRoutes")
+// const issueRouter = require("./routes/issueRoutes")
 
 
 app.use(cors());
@@ -34,10 +34,10 @@ app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('public'))
 app.use("/auth", authRouter);
+app.use(authenticateRequest);
 app.use("/author", authorRouter);
 app.use("/book", bookRouter);
-app.use("/issue", issueRouter);
-// app.use(authenticateRequest);
+// app.use("/issue", issueRouter);
 
 
 app.listen(process.env.PORT || 8000);
