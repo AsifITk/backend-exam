@@ -2,7 +2,7 @@ const express = require("express");
 const userModel = require("../models/userModel")
 
 const AuthorModel = require("../models/authorModel");
-// const BookModel = require("../models/bookModel");
+const BookModel = require("../models/bookModel");
 const IssueModel = require("../models/issueModel");
 const router = express.Router();
 
@@ -21,6 +21,10 @@ router.post("/add", async (req, res) => {
     let bookUpdate = await BookModel.findByIdAndUpdate(book, {
         status: "unavailable"
     })
+    return res.status(200).send({
+        savedIssue: savedIssue
+    })
+
     console.log(bookUpdate);
 
 });
@@ -45,7 +49,8 @@ router.get("/all", async (req, res) => {
     if (!foundIssue) return res.status(400).send("No issue found")
     return res.status(200).send({
         foundIssue: foundIssue
-    })
+    }
+    )
 
 
 })
